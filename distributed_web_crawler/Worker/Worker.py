@@ -12,7 +12,7 @@ class Worker(object):
         BaseManager.register('get_result_queue')
         # Connect to the server (master) node
         server_addr = '127.0.0.1'
-        print(('Connect to server %s...' % server_addr))
+        print('Connect to server %s...' % server_addr)
         # verify the port and authkey and connect through internet
         self.m = BaseManager(address=(server_addr, 8001), authkey='wiki'.encode('utf-8'))
         self.m.connect()

@@ -1,5 +1,5 @@
 # coding:utf-8
-import redis
+
 import hashlib
 import pickle
 

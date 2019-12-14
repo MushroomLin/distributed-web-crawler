@@ -47,7 +47,7 @@ class SpiderMaster(object):
                 url_q.put(new_url)
                 print('old_url=',url_manager.old_url_size())
                 # When crawl 2000 URLs, we stop and save the progress
-                if url_manager.old_url_size()>20:
+                if url_manager.old_url_size()>200:
                     # Notify the worker node stop crawling
                     url_q.put('end')
                     print('Control nodes send stop work notification')
@@ -116,9 +116,13 @@ class SpiderMaster(object):
 
 if __name__=='__main__':
     # Initialize four queues
+    # url_q:  Master -- URL --> Worker
     url_q = Queue()
+    # result_q:  Master <-- DATA -- Worker
     result_q = Queue()
+    # store_q:  Master get new URLs from data and submit it to URL manager with store_q
     store_q = Queue()
+    # conn_q: Master get data we need from data and submit it to File Saver with conn_q
     conn_q = Queue()
     # Create node manager
     node = SpiderMaster()

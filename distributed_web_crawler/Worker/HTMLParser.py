@@ -30,7 +30,7 @@ class HTMLParser(object):
         '''
         new_urls = set()
         # Get the urls that satisfy the rules
-        links = soup.find_all('a',href=re.compile(r'/wiki/.*'))
+        links = soup.find_all('a',href=re.compile(r'.*en.wikipedia.org/wiki/.*'))
         for link in links:
             # get href property
             new_url = link['href']
@@ -52,6 +52,6 @@ class HTMLParser(object):
         title = soup.find('h1',class_='firstHeading',id='firstHeading')
         print(title.get_text())
         data['title'] = title.get_text()
-        summary = soup.p
-        data['summary'] = summary.get_text()
+        summary = "Summary"
+        data['summary'] = summary
         return data
