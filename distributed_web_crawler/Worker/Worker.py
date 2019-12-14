@@ -1,4 +1,5 @@
 #coding:utf-8
+import time
 from multiprocessing.managers import BaseManager
 
 from HTMLDownloader import HTMLDownloader
@@ -25,6 +26,7 @@ class Worker(object):
         print('init finish')
 
     def crawl(self):
+        cnt = 0
         while(True):
             try:
                 if not self.task.empty():
@@ -37,6 +39,11 @@ class Worker(object):
                     content = self.downloader.download(url)
                     new_urls,data = self.parser.parser(url,content)
                     self.result.put({"new_urls":new_urls,"data":data})
+                    cnt += 1
+                else:
+                    if cnt >= 2:
+                        break
+
             except EOFError as e:
                 print("Connection to worker node fail")
                 return

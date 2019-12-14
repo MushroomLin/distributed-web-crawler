@@ -8,12 +8,13 @@ class FileSaver(object):
         self.filepath = 'wiki_%s.html' % (time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()))
         self.output_head(self.filepath)
         self.datas = []
+        self.cnt = 1
 
     def store_data(self, data):
         if data is None:
             return
         self.datas.append(data)
-        if len(self.datas) > 10:
+        if len(self.datas) >= 1:
             self.output_html(self.filepath)
 
     def output_head(self, path):
@@ -29,12 +30,14 @@ class FileSaver(object):
 
     def output_html(self, path):
         '''
-        Writing data into H+TML file
+        Writing data into HTML file
         :param path: File path
         :return:
         '''
         fout=codecs.open(path,'a',encoding='utf-8')
         for data in self.datas:
+            fout.write("<p>%s</p>" %self.cnt)
+            self.cnt += 1
             fout.write("<p>%s</p>"%data['url'])
             fout.write("<p>%s</p>"%data['title'])
             fout.write("<p>%s</p>"%data['summary'])

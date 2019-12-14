@@ -8,8 +8,10 @@ from URLManager import URLManager
 from FileSaver import FileSaver
 
 
+NUM_PAGES_TO_CRAWL = 50
 
 class SpiderMaster(object):
+
 
     def start_Manager(self, url_q, result_q):
         '''
@@ -47,7 +49,7 @@ class SpiderMaster(object):
                 url_q.put(new_url)
                 print('old_url=',url_manager.old_url_size())
                 # When crawl 2000 URLs, we stop and save the progress
-                if url_manager.old_url_size()>200:
+                if url_manager.old_url_size() >= NUM_PAGES_TO_CRAWL:
                     # Notify the worker node stop crawling
                     url_q.put('end')
                     print('Control nodes send stop work notification')

@@ -30,13 +30,14 @@ class HTMLParser(object):
         '''
         new_urls = set()
         # Get the urls that satisfy the rules
-        links = soup.find_all('a',href=re.compile(r'.*en.wikipedia.org/wiki/.*'))
+        links = soup.find_all('a',href=re.compile(r'/wiki/.*'))
         for link in links:
             # get href property
             new_url = link['href']
             # connect the base url to the whole url
             new_full_url = urllib.parse.urljoin(page_url,new_url)
             new_urls.add(new_full_url)
+        print(new_urls)
         return new_urls
 
     def _get_new_data(self, page_url, soup):
@@ -52,6 +53,9 @@ class HTMLParser(object):
         title = soup.find('h1',class_='firstHeading',id='firstHeading')
         print(title.get_text())
         data['title'] = title.get_text()
-        summary = "Summary"
+        ps = soup.find('div', class_ = 'mw-parser-output').find_all('p')
+        summary = ""
+        for s in ps:
+            summary += s.get_text()
         data['summary'] = summary
         return data

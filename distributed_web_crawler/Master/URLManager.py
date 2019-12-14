@@ -2,7 +2,7 @@
 
 import hashlib
 import pickle
-
+import re
 
 class URLManager(object):
     def __init__(self):
@@ -44,7 +44,7 @@ class URLManager(object):
         m = hashlib.md5()
         m.update(url.encode('utf-8'))
         url_md5 = m.hexdigest()
-        if url not in self.new_urls and url_md5 not in self.old_urls:
+        if url not in self.new_urls and url_md5 not in self.old_urls and re.match('.*en.wikipedia.org/wiki/.*', url):
             self.new_urls.add(url)
 
     def add_new_urls(self, urls):
