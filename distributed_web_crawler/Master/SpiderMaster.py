@@ -8,7 +8,7 @@ from URLManager import URLManager
 from FileSaver import FileSaver
 
 
-NUM_PAGES_TO_CRAWL = 50
+NUM_PAGES_TO_CRAWL = 100
 
 class SpiderMaster(object):
 
